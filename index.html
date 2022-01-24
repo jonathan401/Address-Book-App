@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Address Book</title>
+    <script
+      src="https://kit.fontawesome.com/f157625141.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="light-theme">
+      <!-- navigation -->
+      <nav>
+        <h1>MeContacts</h1>
+        <div class="toggler">
+          <img src="images/icon-sun.svg" alt="" />
+        </div>
+      </nav>
+      <header>
+        <form class="search">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="filter contacts"
+          />
+        </form>
+        <div id="new">
+          <span class="fas fa-plus"></span>
+          <span>New</span>
+        </div>
+      </header>
+      <section class="empty-page">
+        <img src="images/illustration-empty.svg" />
+        <h2>There is nothing here.</h2>
+        <p>
+          Add a new contact by clicking the button <br />
+          and get started
+        </p>
+      </section>
+      <!-- contact box -->
+      <section class="contacts">
+        <ul class="contact-details">
+          <!-- <li class="container">
+            <div class="contact">
+              <p>jonathan</p>
+              <p>kehinde</p>
+            </div>
+            <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+          </li> -->
+        </ul>
+      </section>
+      <section class="hidden">
+        <div class="delete-comp"></div>
+      </section>
+      <section>
+        <div class="contact-card hidden">
+          <!-- <span class="fas fa-times cancel"></span>
+          <div class="card-image">
+            <img src="images/illustration-hero.svg">
+          </div>
+          <div class="card-text">
+            <h2>Jonathan Kehinde</h2>
+            <p>jonathan@gmail.com</p>
+            <p>9494949</p>
+          </div>
+          <div class="buttons">
+            <span class="btn btn-primary update">Edit</span>
+            <span class="btn btn-primary cancel">Cancel</span>
+          </div> -->
+        </div>
+      </section>
+      <!-- contact form (add and edit form)  -->
+      <section class="form-wrapper hidden">
+        <form class="contact-form">
+          <h1>Add Contact</h1>
+          <span class="fas fa-times"></span>
+          <div class="form-group">
+            <label>Firstname</label>
+            <input type="text" class="form-control" name="firstname" required>
+            <p>Must not be more than 10 characters and must be capitalized</p>
+          </div>
+          <div class="form-group">
+            <label>Lastname</label>
+            <input type="text" class="form-control" name="lastname" required>
+            <p>Must not be more than 10 characters and must be capitalized</p>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" required>
+            <p>Must be a valid email e.g yourdomain@gmail.com</p>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="number" class="form-control" name="phone" required>
+            <p>Must be an 11 digit number</p>
+          </div>
+          <input type="submit" value="Save" class="btn btn-primary">
+          <button class="btn btn-primary cancel">Cancel</button>
+        </form>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

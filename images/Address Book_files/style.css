@@ -1,0 +1,333 @@
+/* global variables */
+:root {
+    /* light mode */
+    --main-light: #f8f8fb;
+    --nav-light: #373b53;
+    --heading-light: #0c0e16;
+    /* form variables */
+    --form-light: #fff;
+    --form-light-border: #dfe3fa;
+    --form-light-label: #7e88c3;
+    /* buttons */
+    /* primary buttons */
+    --btn-light-primary-bg: #f9fafe;
+    --btn-light-primary-hover: #dfe3fa;
+    --btn-light-primary-text: #7e88c3;
+    /* tertiary buttons */
+    --btn-light-tertiary-bg: #363b53;
+    --btn-light-tertiary-hover: #0c0e16;
+    --btn-light-tertiay-text: #888eb0;
+
+    /* pop up and invoice item */
+    --item-color-light: #eee;
+
+    /* dark theme */
+    --main-dark: #141625;
+    --nav-dark: #1e2139;
+    --heading-dark: #fff;
+    /* form variables */
+    --form-dark: #141625;
+    --form-field-dark-bg: #1e2139;
+    --form-dark-border: #252945;
+    --form-dark-label: #def3fa;
+    /* buttons */
+    /* primary buttons */
+    --btn-dark-primary-bg: #252945;
+    --btn-dark-primary-hover: #fff;
+    --btn-dark-primary-text: #def3fa;
+    /* tertiary buttons */
+    --btn-dark-tertiary-bg: #363b53;
+    --btn-dark-tertiary-hover: #dfe3fa;
+    --btn-dark-tertiary-text: #888eb0;
+
+    --item-color-dark: #1e2139;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 1.5rem;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* general class to hide an element */
+.hidden {
+    display: none !important;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-light);
+}
+
+main.dark-theme {
+    background-color: var(--main-dark);
+}
+
+nav .toggler {
+    cursor: pointer;
+}
+
+main nav {
+    height: 50px;
+    padding: 0 3rem;
+    background-color: var(--nav-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main h1 {
+    color: #fff;
+}
+
+header {
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+header #new {
+    padding: 6px 10px;
+    width: auto;
+    background-color: var(--btn-dark-tertiary-bg);
+    border-radius: 15px;
+    cursor: pointer;
+    color: #fff;
+}
+
+header #new span:nth-child(1) {
+    padding: 4px;
+    margin-right: 3px;
+    color: var(--heading-light);
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.empty-page {
+    margin: 2rem auto;
+    text-align: center;
+    color: var(--heading-light);
+}
+
+.empty-page h2 {
+    margin-bottom: 1.4rem;
+}
+
+main.dark-theme .empty-page h2,
+main.dark-theme .empty-page p {
+    color: var(--heading-dark);
+}
+
+/* styling the ul that holds the contact's page and details light mode */
+.contact-details {
+    padding: 0 2rem;
+    overflow-y: hidden;
+    list-style: none;
+}
+
+.contact-details li {
+    cursor: pointer;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+    background-color: var(--item-color-light);
+    color: #888eb0;
+}
+
+.contact {
+    display: flex;
+}
+
+.contact-details p {
+    font-weight: 700;
+    margin: 0 5px;
+}
+
+/* about contact page */
+.about-contact {
+    width: 100%;
+    height: 100%;
+    background-color: red;
+}
+
+main.dark-theme .contact-details li {
+    background-color: var(--item-color-dark);
+    color: var(--heading-dark);
+}
+
+
+/* styling the buttons light mode*/
+.btn {
+    padding: 1rem 1.7rem;
+    text-align: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+/* primary buttons */
+.btn-primary {
+    background-color: var(--btn-light-primary-bg);
+    color: var(--btn-light-primary-text);
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-light-primary-hover);
+}
+/* secondary buttons */
+.btn-tertiary {
+    background-color: var(--btn-light-primary-bg);
+    color: var(--btn-light-tertiary-text);
+}
+
+.btn-tertiary:hover {
+    background-color: var(--btn-light-tertiary-hover);
+
+}
+
+/* buttons in dark mode */
+main.dark-theme .btn-primary {
+    background-color: var(--btn-dark-primary-bg);
+    color: var(--btn-dark-primary-text);
+}
+
+main.dark-theme .btn-primary:hover {
+    background-color: var(--btn-dark-primary-hover);
+}
+
+main.dark-theme .btn-tertiary {
+    background-color: var(--btn-dark-tertiary-bg);
+    color: var(--btn-dark-tertiary-text);
+}
+
+main.dark-theme .btn-tertiary:hover {
+    background-color: var(--btn-dark-tertiary-hover);
+}
+
+.form-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* class to give the form a form of animation to the right */
+/* .contact-form.slide-right {
+    margin-left: 0;
+    transition: all 2s linear;
+} */
+
+/* styling the add up form (light-theme) */
+.contact-form {
+    background-color: var(--form-light);
+    position: relative;
+    top: 50px;   
+    padding: 2.5rem;
+    width: 100%;
+    height: 100%;
+}
+
+.contact-form h1 {
+    color: var(--heading-light);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.contact-form .fa-times {
+    position: absolute;
+    top: 10px;
+    font-size: 2rem;
+    display: block;
+    color: var(--btn-light-primary-text);
+    right: 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.form-group, 
+.contact-form h1 {
+    margin-bottom: 2rem;
+}
+
+.form-control + p {
+    height: 0;
+    opacity: 0;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.form-control.invalid + p {
+    height: auto;
+    color: red;
+    opacity: 1;
+}
+
+.form-control.invalid {
+    border: 1px solid red;
+}
+
+.form-group label {
+    color: var(--form-light-label);
+    display: block;
+}
+
+.form-control {
+    color: var(--heading-light);
+    width: 100%;
+    background-color: var(--form-light);
+    border: 1px solid var(--form-light-border);
+    border-radius: 4px;
+    padding: 0.7rem 1rem;
+    transition: all 0.19s;
+}
+
+.form-control:focus {
+    outline: 0;
+    box-shadow: 0 0 4px var(--form-light-border);
+}
+
+/* styling the form dark theme */
+main.dark-theme .contact-form {
+    background-color: var(--form-dark);
+}
+
+main.dark-theme .contact-form h1 {
+    color: var(--heading-dark);
+}
+
+main.dark-theme .contact-form span {
+    color: var(--btn-light-primary-text);
+}
+
+main.dark-theme .form-group label {
+    color: var(--form-dark-label);
+}
+
+main.dark-theme .form-control {
+    color: #fff;
+    background-color: var(--form-field-dark-bg);
+    border: 1px solid var(--form-dark-border);
+}
+
+main.dark-theme .form-control:focus {
+    box-shadow: 0 0 4px var(--form-dark-border);
+}
