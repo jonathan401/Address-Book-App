@@ -178,8 +178,7 @@ main.dark-theme .empty-page p {
 /* contact card light mode */
 .contact-card {
     position: fixed;
-    text-align: center;
-    padding: 2rem 2.5rem;
+    text-align: center;  
     font-size: 1.2rem;
     color: var(--btn-dark-primary-text);
     top: 50px;
@@ -188,6 +187,40 @@ main.dark-theme .empty-page p {
     max-width: 350px; /*change this to 50% for wider screens*/
     right: 0;
     background-color: var(--main-dark);
+}
+
+.card-image img {
+    object-fit: cover;
+    width: 100%;
+}
+
+.card-image {
+    margin-bottom: 0.7rem;
+}
+
+/* styling the contact page */
+.card-text {
+    padding: 1rem;
+}
+
+.card-text header,
+.text-group {
+    margin-bottom: 2rem;
+}
+
+.text-group {
+    margin-left: 2rem;
+}
+
+.text-group h3 {
+    text-align: left;
+    margin-bottom: 0.4rem;
+}
+
+.text-group .info {
+    display: flex;
+    font-weight: 600;
+    justify-content: space-between;
 }
 
 .contact-card .buttons {
@@ -204,17 +237,6 @@ main.dark-theme .contact-card {
     color: var(--btn-light-primary-text);
 }
 
-.card-image img {
-    object-fit: cover;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-}
-
-.card-text,
-.card-image {
-    margin-bottom: 2rem;
-}
 
 main.dark-theme .contact-details li {
     background-color: var(--item-color-dark);

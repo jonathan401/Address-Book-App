@@ -5,6 +5,7 @@ const formWrapper = document.querySelector('.form-wrapper');
 const form = document.querySelector('.contact-form');
 const emptyPage = document.querySelector('.empty-page');
 const contactContainer = document.querySelector('.contact-details');
+const contactCard = document.querySelector('.contact-card');
 
 // hidding the form when the cancel buttons is clicked
 main.addEventListener('click', e => {
@@ -62,7 +63,6 @@ addBtn.addEventListener('click', () => {
 
 // function definitions
 
-
 // validate function
 const validateInputs = (inputField, regex) => {
   if (!regex.test(inputField.value)) {
@@ -95,25 +95,22 @@ const createContact = () => {
 
 
 // function to generate template for contact
-const generateTemp = (contactInfo, show) => {
-    if(show) {
-        const html = `
-          <li class="container">
-            <div class="contact">
-              <div class="contact-image">
-                <span class="fas fa-user"></span>
-              </div>
-              <p>${contactInfo.firstname}</p>
-              <p>${contactInfo.lastname}</p>
-            </div>
-            <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
-        </li>
-        `;  
-        contactContainer.innerHTML += html;
-    } else {
-        html = contactInfo;
-        return contactInfo;
-    }
+const generateTemp = contactInfo => {
+  let html = `
+    <li class="container">
+      <div class="contact">
+        <div class="contact-image">
+          <span class="fas fa-user"></span>
+        </div>
+            <p>${contactInfo.firstname}</p>
+            <p>${contactInfo.lastname}</p>
+            <p class="hidden">${contactInfo.email}</p>
+            <p class="hidden">${contactInfo.phone}</p>
+      </div>
+          <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+    </li>
+        `;       
+      contactContainer.innerHTML += html;
 };
 
 // function to get a reference to all the input fields
@@ -121,6 +118,54 @@ const getInputs = () => {
   const inputs = document.querySelectorAll('.contact-form .form-control');
   return inputs;
 };
+
+// function to display contact card when a contact is clicked on
+contactContainer.addEventListener('click', e => {
+  if(e.target.classList.contains('container')) {
+    /* this is the only way i could think of to get the firstname, lastname, email and 
+    phone number form the contact */
+    let firstname = e.target.children[0].children[1].textContent
+    let lastname = e.target.children[0].children[2].textContent
+    let email = e.target.children[0].children[3].textContent;
+    let phone = e.target.children[0].children[4].textContent;
+    
+    // updating the contact card
+    const html = `
+    <span class="fas fa-times cancel"></span>
+    <div class="card-image">
+      <img src="images/illustration-hero.svg">
+    </div>
+    <div class="card-text">
+      <header>
+        <h2>${firstname} ${lastname}</h2>
+      </header>
+      <div class="text-group">
+        <h3>Email</h3>
+        <div class="info">
+          <p>${email}</p>
+          <span class="fas fa-mail"></span>
+        </div>
+      </div>
+      <div class="text-group">
+        <h3>Phone</h3>
+        <div class="info">
+          <p>${phone}</p>
+          <span class="fas fa-mail"></span>
+        </div>
+      </div>
+    </div>
+    <div class="buttons">
+      <span class="btn btn-tertiary update">Edit</span>
+      <span class="btn btn-tertiary delete">Delete</span>
+      <span class="btn btn-tertiary cancel">Cancel</span>
+    </div>
+    `;
+    if(contactCard.classList.contains('hidden')) {
+      contactCard.classList.remove('hidden');
+    }
+    contactCard.innerHTML = html;
+  }
+});
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -140,7 +185,7 @@ form.addEventListener('submit', e => {
       /* when the form has been validated, data is extracted from the input fields and an instance of the
       contact class is created with the values from the form and is passed into the generateTemp function
       which generates a little contact box from the object passed into it as an argument */
-      generateTemp(createContact(), true);
+      generateTemp(createContact());
       if(!emptyPage.classList.contains('hidden')) {
           emptyPage.classList.add('hidden');
       }
