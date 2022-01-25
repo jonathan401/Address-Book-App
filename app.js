@@ -8,7 +8,7 @@ const contactContainer = document.querySelector('.contact-details');
 const contactCard = document.querySelector('.contact-card');
 
 // hidding the form when the cancel buttons is clicked
-main.addEventListener('click', e => {
+main.addEventListener('click', (e) => {
   if (e.target.classList.contains('cancel')) {
     e.target.parentElement.parentElement.classList.add('hidden');
   }
@@ -24,7 +24,10 @@ const pattern = {
 
 // creating a function to show the appropriate form (add or edit)
 const showForm = (headerText, buttonText) => {
-    const html = `
+  if (formWrapper.classList.contains('hidden')) {
+    formWrapper.classList.remove('hidden');
+  }
+  const html = `
     <h1>${headerText}</h1>
     <span class="fas fa-times cancel"></span>
     <div class="form-group">
@@ -50,15 +53,12 @@ const showForm = (headerText, buttonText) => {
     <input type="submit" value="${buttonText}" class="btn btn-primary">
     <input type="button" value="Cancel" class="btn btn-primary cancel">
     `;
-    form.innerHTML = html;
+  form.innerHTML = html;
 };
 
 // showing the form when the add button is clicked
 addBtn.addEventListener('click', () => {
-    if (formWrapper.classList.contains('hidden')) {
-        formWrapper.classList.remove('hidden');
-      }
-    showForm('Add Contact', 'Save');
+  showForm('Add Contact', 'Save');
 });
 
 // function definitions
@@ -84,18 +84,17 @@ class Contact {
 
 // function to create new contact
 const createContact = () => {
-    let contact = new Contact(
-        getInputs()[0].value,
-        getInputs()[1].value,
-        getInputs()[2].value,
-        getInputs()[3].value
-      );
-      return contact;
+  let contact = new Contact(
+    getInputs()[0].value,
+    getInputs()[1].value,
+    getInputs()[2].value,
+    getInputs()[3].value
+  );
+  return contact;
 };
 
-
 // function to generate template for contact
-const generateTemp = contactInfo => {
+const generateTemp = (contactInfo) => {
   let html = `
     <li class="container">
       <div class="contact">
@@ -109,8 +108,8 @@ const generateTemp = contactInfo => {
       </div>
           <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
     </li>
-        `;       
-      contactContainer.innerHTML += html;
+        `;
+  contactContainer.innerHTML += html;
 };
 
 // function to get a reference to all the input fields
@@ -119,16 +118,44 @@ const getInputs = () => {
   return inputs;
 };
 
+// adding an event listener to edit
+// contactCard.addEventListener('click', (e) => {
+//   if(e.target.classList.contains('update')) {
+//     showForm('Edit Contact', 'update');
+//   }
+// });
+
 // function to display contact card when a contact is clicked on
-contactContainer.addEventListener('click', e => {
-  if(e.target.classList.contains('container')) {
+contactContainer.addEventListener('click', (e) => {
+  if (e.target.classList.contains('container')) {
     /* this is the only way i could think of to get the firstname, lastname, email and 
     phone number form the contact */
-    let firstname = e.target.children[0].children[1].textContent
-    let lastname = e.target.children[0].children[2].textContent
+    let parent = e.target;
+    // i prepopulated the form with the current contact's details
+    let firstname = e.target.children[0].children[1].textContent;
+    let lastname = e.target.children[0].children[2].textContent;
     let email = e.target.children[0].children[3].textContent;
     let phone = e.target.children[0].children[4].textContent;
-    
+    /* when the edit button is clicked, then the form should be shown with the input fields prepopulated with
+       text of the field that is to be updated and when form is submitted, then the parent of the edit should
+       be updated with the value from the input field */
+    contactCard.addEventListener('click', (e) => {
+      if (e.target.classList.contains('update')) {
+        showForm(`Edit ${firstname}`, 'update');
+        getInputs()[0].value = `${firstname}`;
+        getInputs()[1].value = `${lastname}`;
+        getInputs()[2].value = `${email}`;
+        getInputs()[3].value = `${phone}`;
+      }
+      if(e.target.classList.contains('delete')) {
+        // e.target.parentElement.parentElement.remove();
+        console.log(parent);
+        parent.remove();
+      }
+      contactCard.classList.add('hidden');
+    });
+
+
     // updating the contact card
     const html = `
     <span class="fas fa-times cancel"></span>
@@ -155,19 +182,19 @@ contactContainer.addEventListener('click', e => {
       </div>
     </div>
     <div class="buttons">
-      <span class="btn btn-tertiary update">Edit</span>
-      <span class="btn btn-tertiary delete">Delete</span>
-      <span class="btn btn-tertiary cancel">Cancel</span>
+      <span class="btn btn-primary update">Edit</span>
+      <span class="btn btn-primary delete">Delete</span>
+      <span class="btn btn-primary cancel">Cancel</span>
     </div>
     `;
-    if(contactCard.classList.contains('hidden')) {
+    if (contactCard.classList.contains('hidden')) {
       contactCard.classList.remove('hidden');
     }
     contactCard.innerHTML = html;
   }
 });
 
-form.addEventListener('submit', e => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   let validInputs = [];
   /* the way this part works is that when the form is submitted, the getInputs which gets a reference to
@@ -186,12 +213,10 @@ form.addEventListener('submit', e => {
       contact class is created with the values from the form and is passed into the generateTemp function
       which generates a little contact box from the object passed into it as an argument */
       generateTemp(createContact());
-      if(!emptyPage.classList.contains('hidden')) {
-          emptyPage.classList.add('hidden');
+      if (!emptyPage.classList.contains('hidden')) {
+        emptyPage.classList.add('hidden');
       }
       formWrapper.classList.add('hidden');
     }
   });
 });
-
-
