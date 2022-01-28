@@ -16,7 +16,10 @@
     /* tertiary buttons */
     --btn-light-tertiary-bg: #363b53;
     --btn-light-tertiary-hover: #0c0e16;
-    --btn-light-tertiay-text: #888eb0;
+    --btn-light-tertiary-text: #888eb0;
+    /* danger button */
+    --btn-danger: #ff293b;
+    --btn-danger-hover: #ff7581;
 
     /* pop up and invoice item */
     --item-color-light: #eee;
@@ -69,7 +72,9 @@ main {
     width: 100%;
     height: 100%;
     min-height: 100vh;
+    overflow-y: scroll;
     background-color: var(--main-light);
+    transition: all 0.3s linear;
 }
 
 main.dark-theme {
@@ -183,6 +188,7 @@ main.dark-theme .empty-page p {
     color: var(--btn-dark-primary-text);
     top: 50px;
     height: 100%;
+    z-index: 20;
     width: 100%;
     max-width: 350px; /*change this to 50% for wider screens*/
     right: 0;
@@ -220,6 +226,7 @@ main.dark-theme .empty-page p {
 .text-group .info {
     display: flex;
     font-weight: 600;
+    padding: 0.6rem;
     justify-content: space-between;
 }
 
@@ -230,6 +237,44 @@ main.dark-theme .empty-page p {
 
 .contact-card .btn {
     margin: 0 7px;
+}
+
+/* styling the delete confirmation box */
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.delete-comp {
+    padding: 1.5rem;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    max-width: 300px;
+    border-radius: 7px;
+    background-color: var(--item-color-light);
+    color: var(--heading-light);
+}
+
+.delete-comp h2, 
+.delete-comp p {
+    margin-bottom: 1rem;
+}
+
+.delete-comp span {
+    font-weight: 900;
+}
+
+main.dark-theme .delete-comp {
+    background-color: var(--item-color-dark);
+    color: var(--heading-dark)
 }
 
 main.dark-theme .contact-card {
@@ -246,7 +291,7 @@ main.dark-theme .contact-details li {
 
 /* styling the buttons light mode*/
 .btn {
-    padding: 1rem 1.7rem;
+    padding: 0.9rem 1.7rem;
     text-align: center;
     border: none;
     outline: none;
@@ -263,6 +308,15 @@ main.dark-theme .contact-details li {
 .btn-primary:hover {
     background-color: var(--btn-light-primary-hover);
 }
+
+.btn-danger {
+    background-color: var(--btn-danger);
+    color: var(--btn-dark-primary-text);
+}
+
+.btn-danger:hover {
+    background-color: var(--btn-danger-hover);
+}
 /* secondary buttons */
 .btn-tertiary {
     background-color: var(--btn-light-primary-bg);
@@ -271,6 +325,7 @@ main.dark-theme .contact-details li {
 
 .btn-tertiary:hover {
     background-color: var(--btn-light-tertiary-hover);
+    color: var(--btn-light-tertiary-text);
 
 }
 
@@ -302,6 +357,7 @@ main.dark-theme .btn-tertiary:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+
 /* class to give the form a form of animation to the right */
 /* .contact-form.slide-right {
     margin-left: 0;
@@ -330,7 +386,7 @@ main.dark-theme .btn-tertiary:hover {
     font-size: 2rem;
     display: block;
     color: var(--btn-light-primary-text);
-    right: 10px;
+    right: 30px;
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 600;
