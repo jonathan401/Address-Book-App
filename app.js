@@ -6,12 +6,28 @@ const form = document.querySelector('.contact-form');
 const emptyPage = document.querySelector('.empty-page');
 const contactContainer = document.querySelector('.contact-details');
 const contactCard = document.querySelector('.contact-card');
+const deleteWrapper = document.querySelector('.wrapper');
+const modeToggler = document.querySelector('.toggler');
+const modeImage = document.querySelector('.toggler img');
+const deletePage = document.querySelector('.delete-comp');
 
-// hidding the form when the cancel buttons is clicked
-main.addEventListener('click', (e) => {
-  if (e.target.classList.contains('cancel')) {
-    e.target.parentElement.parentElement.classList.add('hidden');
-  }
+// // hidding the form when the cancel buttons is clicked
+// main.addEventListener('click', (e) => {
+//   if (e.target.classList.contains('cancel')) {
+//     e.target.parentElement.parentElement.classList.add('hidden');
+//   }
+// });
+
+// mode toggler
+modeToggler.addEventListener('click', () => {
+  main.classList.toggle('dark-theme');
+  // toggling between light and dark mode using the ternary operator
+  let imageSrc;
+  imageSrc =
+    main.className == 'dark-theme'
+      ? 'images/icon-sun.svg'
+      : 'images/icon-moon.svg';
+  modeImage.setAttribute('src', imageSrc);
 });
 
 // regex pattern
@@ -22,11 +38,13 @@ const pattern = {
   phone: /^\d{11}$/,
 };
 
-// creating a function to show the appropriate form (add or edit)
-const showForm = (headerText, buttonText) => {
+const showForm = (headerText, buttonText, id) => {
   if (formWrapper.classList.contains('hidden')) {
     formWrapper.classList.remove('hidden');
   }
+
+  form.setAttribute('id', id);
+
   const html = `
     <h1>${headerText}</h1>
     <span class="fas fa-times cancel"></span>
@@ -50,15 +68,63 @@ const showForm = (headerText, buttonText) => {
       <input type="number" class="form-control" name="phone" required>
       <p>Must be an 11 digit number</p>
     </div>
-    <input type="submit" value="${buttonText}" class="btn btn-primary">
+    <input type="submit" value="${buttonText}" class="btn btn-primary update">
     <input type="button" value="Cancel" class="btn btn-primary cancel">
     `;
   form.innerHTML = html;
+  form.addEventListener('click', (e) => {
+    if (e.target.classList.contains('cancel')) {
+      formWrapper.classList.add('hidden');
+    }
+  });
 };
+
+
+// adding an event listener to the form
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  let validInputs = [];
+
+  let idValue = form.getAttribute('id');
+  /* what i did here is that so as to know which form is being submitted, i get add an id of 'add' to
+  the form if an edit form is shown and an id of 'edit' if the edit form is show.
+  i then get all the input fields and test them against their regex pattern if the field is valid, i add that 
+  input field to an array and when the array is the same length as the length of all the inputs, 
+  i check if the form has an id of 'add' (which if true means that the form is an add form since i am using
+    the same form to edit and add contacts in order to keep my code dry)  i then generate a template from the 
+    input fields and add them to the container. if the form does not have an id of add, i first of all generate
+    a template from the input fields, i then get the second to the last element because that will be the old 
+    contact that is to be updated and then i remove it. this is possible because whenever a new contact is 
+    added to the contact list and the form has an id other than add, the edited contact is always the second
+    to the last element in the ul container i access it using the getContact function which gets all the 
+    containers.*/
+
+  getInputs().forEach((input) => {
+    validateInputs(input, pattern[input.attributes.name.value]);
+    if (!input.classList.contains('invalid')) {
+      validInputs.push(input);
+    }
+
+    if (validInputs.length == getInputs().length) {
+      if(idValue === 'add') {
+        generateTemp(createContact()); // generate template from the input fields
+      } else {
+        generateTemp(createContact());
+        let edited = getContacts().length - 2; // remove the second to the last element
+        getContacts()[edited].remove();
+      }
+      formWrapper.classList.add('hidden');
+    }
+
+    if(!emptyPage.classList.contains('hidden')) {
+      emptyPage.classList.add('hidden');
+    }
+  });
+});
 
 // showing the form when the add button is clicked
 addBtn.addEventListener('click', () => {
-  showForm('Add Contact', 'Save');
+  showForm('Add Contact', 'Save', 'add');
 });
 
 // function definitions
@@ -70,6 +136,60 @@ const validateInputs = (inputField, regex) => {
   } else {
     inputField.classList.remove('invalid');
   }
+};
+
+// function to generate template for contact
+const generateTemp = (contactInfo) => {
+  let html = `
+    <li class="container">
+      <div class="contact">
+        <div class="contact-image">
+          <span class="fas fa-user"></span>
+        </div>
+            <p>${contactInfo.firstname}</p>
+            <p>${contactInfo.lastname}</p>
+            <p class="hidden">${contactInfo.email}</p>
+            <p class="hidden">${contactInfo.phone}</p>
+      </div>
+          <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+    </li>
+        `;
+  contactContainer.innerHTML += html;
+};
+
+// function to show the delete component
+const showDeleteComp = (item, removeable) => {
+  if (deleteWrapper.classList.contains('hidden')) {
+    deleteWrapper.classList.remove('hidden');
+  }
+  const html = `
+  <h2>Confirm Deletion</h2>
+  <p>Do you really want to remove <span>${item}</span> from your contacts?</p>
+  <button class="btn btn-tertiary cancel">Cancel</button>
+  <button class="btn btn-danger delete">Delete</button>
+  `;
+  deletePage.innerHTML = html;
+  deletePage.addEventListener('click', (e) => {
+    if (e.target.classList.contains('delete')) {
+      removeable.remove();
+      deleteWrapper.classList.add('hidden');
+      // if(!getContacts()) {
+      //   emptyPage.classList.remove('hidden');
+      // }
+      console.log(getContacts().length);
+    }
+    if (e.target.classList.contains('cancel')) {
+      deleteWrapper.classList.add('hidden');
+    }
+  });
+  /* when the delete button is clicked, a little box is shown to confirm the user's action to delete a contact
+  if this is true, the parent of the delete button is removed */
+};
+
+// function to get all the contacts in the contact field
+const getContacts = () => {
+  const allContacts = document.querySelectorAll('.contact-details li');
+  return allContacts;
 };
 
 // contact class
@@ -93,37 +213,11 @@ const createContact = () => {
   return contact;
 };
 
-// function to generate template for contact
-const generateTemp = (contactInfo) => {
-  let html = `
-    <li class="container">
-      <div class="contact">
-        <div class="contact-image">
-          <span class="fas fa-user"></span>
-        </div>
-            <p>${contactInfo.firstname}</p>
-            <p>${contactInfo.lastname}</p>
-            <p class="hidden">${contactInfo.email}</p>
-            <p class="hidden">${contactInfo.phone}</p>
-      </div>
-          <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
-    </li>
-        `;
-  contactContainer.innerHTML += html;
-};
-
 // function to get a reference to all the input fields
 const getInputs = () => {
   const inputs = document.querySelectorAll('.contact-form .form-control');
   return inputs;
 };
-
-// adding an event listener to edit
-// contactCard.addEventListener('click', (e) => {
-//   if(e.target.classList.contains('update')) {
-//     showForm('Edit Contact', 'update');
-//   }
-// });
 
 // function to display contact card when a contact is clicked on
 contactContainer.addEventListener('click', (e) => {
@@ -132,91 +226,68 @@ contactContainer.addEventListener('click', (e) => {
     phone number form the contact */
     let parent = e.target;
     // i prepopulated the form with the current contact's details
-    let firstname = e.target.children[0].children[1].textContent;
-    let lastname = e.target.children[0].children[2].textContent;
-    let email = e.target.children[0].children[3].textContent;
-    let phone = e.target.children[0].children[4].textContent;
+    let firstname = parent.children[0].children[1].textContent; //extract the firstname from the html
+    let lastname = parent.children[0].children[2].textContent; //extract the lastname from the html
+    let email = parent.children[0].children[3].textContent; //extract the email from the html
+    let phone = parent.children[0].children[4].textContent; //extract the phone from the html
     /* when the edit button is clicked, then the form should be shown with the input fields prepopulated with
        text of the field that is to be updated and when form is submitted, then the parent of the edit should
        be updated with the value from the input field */
     contactCard.addEventListener('click', (e) => {
       if (e.target.classList.contains('update')) {
-        showForm(`Edit ${firstname}`, 'update');
+        contactCard.classList.add('hidden');
+        showForm(`Edit ${firstname}`, 'Update', 'edit');
         getInputs()[0].value = `${firstname}`;
         getInputs()[1].value = `${lastname}`;
         getInputs()[2].value = `${email}`;
         getInputs()[3].value = `${phone}`;
       }
-      if(e.target.classList.contains('delete')) {
-        // e.target.parentElement.parentElement.remove();
-        console.log(parent);
-        parent.remove();
+      // extracting the new values from the form
+      
+      if (e.target.classList.contains('delete')) {
+        showDeleteComp(firstname, parent);
+        contactCard.classList.add('hidden');
       }
-      contactCard.classList.add('hidden');
+      
+      if (e.target.classList.contains('cancel')) {
+        contactCard.classList.add('hidden');
+      }
     });
-
-
+    
     // updating the contact card
     const html = `
-    <span class="fas fa-times cancel"></span>
-    <div class="card-image">
-      <img src="images/illustration-hero.svg">
-    </div>
-    <div class="card-text">
-      <header>
-        <h2>${firstname} ${lastname}</h2>
-      </header>
-      <div class="text-group">
-        <h3>Email</h3>
-        <div class="info">
-          <p>${email}</p>
-          <span class="fas fa-mail"></span>
-        </div>
-      </div>
-      <div class="text-group">
-        <h3>Phone</h3>
-        <div class="info">
-          <p>${phone}</p>
-          <span class="fas fa-mail"></span>
-        </div>
+  <span class="fas fa-times cancel"></span>
+  <div class="card-image">
+    <img src="images/illustration-hero.svg">
+  </div>
+  <div class="card-text">
+    <header>
+      <h2>${firstname} ${lastname}</h2>
+    </header>
+    <div class="text-group">
+      <h3>Email</h3>
+      <div class="info">
+        <p>${email}</p>
+        <span class="fas fa-envelope"></span>
       </div>
     </div>
-    <div class="buttons">
-      <span class="btn btn-primary update">Edit</span>
-      <span class="btn btn-primary delete">Delete</span>
-      <span class="btn btn-primary cancel">Cancel</span>
+    <div class="text-group">
+      <h3>Phone</h3>
+      <div class="info">
+        <p>${phone}</p>
+        <span class="fas fa-phone"></span>
+      </div>
     </div>
-    `;
+  </div>
+  <div class="buttons">
+    <span class="btn btn-primary update">Edit</span>
+    <span class="btn btn-primary cancel">Cancel</span>
+    <span class="btn btn-danger delete">Delete</span>
+  </div>
+  `;
+    contactCard.innerHTML = html;
     if (contactCard.classList.contains('hidden')) {
       contactCard.classList.remove('hidden');
     }
-    contactCard.innerHTML = html;
   }
-});
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let validInputs = [];
-  /* the way this part works is that when the form is submitted, the getInputs which gets a reference to
-    all the input fields is looped through and if any of the input dosen't have a class of invalid, the 
-    input is added to the validInputs array which stores inputs that are valid. when this is done i check to 
-    see if the length of the validInputs array is equal to that of the getInputs array, if it is, it means
-    all the input fields passed their, respective regex patterns */
-  getInputs().forEach((input) => {
-    validateInputs(input, pattern[input.attributes.name.value]);
-    if (!input.classList.contains('invalid')) {
-      validInputs.push(input);
-    }
-    if (validInputs.length == getInputs().length) {
-      // the form has been validated
-      /* when the form has been validated, data is extracted from the input fields and an instance of the
-      contact class is created with the values from the form and is passed into the generateTemp function
-      which generates a little contact box from the object passed into it as an argument */
-      generateTemp(createContact());
-      if (!emptyPage.classList.contains('hidden')) {
-        emptyPage.classList.add('hidden');
-      }
-      formWrapper.classList.add('hidden');
-    }
-  });
 });
