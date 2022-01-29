@@ -9,6 +9,7 @@ const contactCard = document.querySelector('.contact-card');
 const deleteWrapper = document.querySelector('.wrapper');
 const modeToggler = document.querySelector('.toggler');
 const modeImage = document.querySelector('.toggler img');
+const searchPanel = document.querySelector('form.search');
 const deletePage = document.querySelector('.delete-comp');
 
 // // hidding the form when the cancel buttons is clicked
@@ -18,42 +19,32 @@ const deletePage = document.querySelector('.delete-comp');
 //   }
 // });
 
+
 // mode toggler
 modeToggler.addEventListener('click', () => {
   // toggling between light and dark mode using the ternary operator
   let imageSrc;
   imageSrc =
-    main.className == 'dark-theme'
-      ? 'images/icon-sun.svg'
-      : 'images/icon-moon.svg';
-  modeImage.setAttribute('src', imageSrc);
+  main.className == 'dark-theme'
+  ? 'images/icon-sun.svg'
+  : 'images/icon-moon.svg';
   main.classList.toggle('dark-theme');
   localStorage.setItem('theme', JSON.stringify(main.className));
+  localStorage.setItem('icon', JSON.stringify(imageSrc))
+  modeImage.setAttribute('src', imageSrc);
 });
 // updating the theme of the page
 let theme = JSON.parse(localStorage.getItem('theme'));
+let imgSrc = JSON.parse(localStorage.getItem('icon'));
 main.className = theme;
-
-
-// function to update the UI with the contacts stored in local storage
-const updateUi = () => {
-  const stored = JSON.parse(localStorage.getItem('contacts'));
-  stored.forEach(contact => {
-    generateTemp(contact);
-  });
-}
-
-// adding an event listener to the form wrapper
-formWrapper.addEventListener('click', () => {
-  formWrapper.classList.add('hidden');
-});
+modeImage.setAttribute('src', imgSrc);
 
 
 // regex pattern
 const pattern = {
   firstname: /^[A-Z][a-z]{0,9}$/,
   lastname: /^[A-Z][a-z]{0,9}$/,
-  email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+  email: /^([a-zA-Z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
   phone: /^\d{11}$/,
 };
 
@@ -98,6 +89,24 @@ const showForm = (headerText, buttonText, id) => {
   });
 };
 
+// function to filter the contacts
+searchPanel.addEventListener('keyup', e => {
+  e.preventDefault();
+  const value = searchPanel.filterField.value.trim();
+  getContacts().forEach(contact => {
+    if(!contact.textContent.toLowerCase().includes(value)) {
+      contact.classList.add('hidden');
+    } else {
+      contact.classList.remove('hidden');
+    }
+  });
+});
+
+// function to prevent the page from reloading when the filter form is submitted
+searchPanel.addEventListener('submit', e => {
+  e.preventDefault();
+})
+
 // adding an event listener to the form
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -141,6 +150,7 @@ form.addEventListener('submit', (e) => {
   });
 });
 
+
 // showing the form when the add button is clicked
 addBtn.addEventListener('click', () => {
   showForm('Add Contact', 'Save', 'add');
@@ -153,13 +163,37 @@ const updateStorage = () => {
   in the html and then convert all of them to JSON string and store them in the user's local storage using the 
   key 'todos' as the key */
   const contactArr = [];
-  let contacts = getContacts();
-  contacts.forEach(contact => {
-      contactArr.push(contact);
+  getContacts().forEach(contact => {
+    // tried to extract the details from every one of the contacts
+    let firstname = contact.children[0].children[1].textContent; 
+    let lastname = contact.children[0].children[2].textContent;
+    let email = contact.children[0].children[3].textContent; 
+    let phone = contact.children[0].children[4].textContent;
+    const info = {
+      firstname: firstname,
+      lastname: lastname,
+      email: email,
+      phone: phone
+    }
+    contactArr.push(info);
   });
+
   const contactContent = JSON.stringify(contactArr);
   localStorage.setItem('contacts', contactContent);
 };
+
+// updating the page with the data gotten from local storage
+const updateUI = () => {
+  const stored = JSON.parse(localStorage.getItem('contacts'));
+  stored.forEach(contactDetails => {
+    if(!emptyPage.classList.contains('hidden')); {
+      emptyPage.classList.add('hidden');
+    }
+    generateTemp(contactDetails);
+  });
+};
+
+
 
 
 // validate function
@@ -184,7 +218,7 @@ const generateTemp = (contactInfo) => {
             <p class="hidden">${contactInfo.email}</p>
             <p class="hidden">${contactInfo.phone}</p>
       </div>
-          <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+      <div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
     </li>
         `;
   contactContainer.innerHTML += html;
@@ -328,4 +362,4 @@ contactContainer.addEventListener('click', (e) => {
   }
 });
 
-// updateUi();
+updateUI();
