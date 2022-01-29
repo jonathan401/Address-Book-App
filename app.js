@@ -29,9 +29,9 @@ modeToggler.addEventListener('click', () => {
   main.className == 'dark-theme'
   ? 'images/icon-sun.svg'
   : 'images/icon-moon.svg';
-  localStorage.setItem('theme', JSON.stringify(main.className));
-  localStorage.setItem('icon', JSON.stringify(imageSrc))
   modeImage.setAttribute('src', imageSrc);
+  localStorage.setItem('theme', JSON.stringify(main.className));
+  localStorage.setItem('icon', JSON.stringify(imageSrc));
 });
 
 
