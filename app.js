@@ -20,7 +20,6 @@ const deletePage = document.querySelector('.delete-comp');
 
 // mode toggler
 modeToggler.addEventListener('click', () => {
-  main.classList.toggle('dark-theme');
   // toggling between light and dark mode using the ternary operator
   let imageSrc;
   imageSrc =
@@ -28,7 +27,27 @@ modeToggler.addEventListener('click', () => {
       ? 'images/icon-sun.svg'
       : 'images/icon-moon.svg';
   modeImage.setAttribute('src', imageSrc);
+  main.classList.toggle('dark-theme');
+  localStorage.setItem('theme', JSON.stringify(main.className));
 });
+// updating the theme of the page
+let theme = JSON.parse(localStorage.getItem('theme'));
+main.className = theme;
+
+
+// function to update the UI with the contacts stored in local storage
+const updateUi = () => {
+  const stored = JSON.parse(localStorage.getItem('contacts'));
+  stored.forEach(contact => {
+    generateTemp(contact);
+  });
+}
+
+// adding an event listener to the form wrapper
+formWrapper.addEventListener('click', () => {
+  formWrapper.classList.add('hidden');
+});
+
 
 // regex pattern
 const pattern = {
@@ -79,9 +98,8 @@ const showForm = (headerText, buttonText, id) => {
   });
 };
 
-
 // adding an event listener to the form
-form.addEventListener('submit', e => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   let validInputs = [];
 
@@ -106,18 +124,19 @@ form.addEventListener('submit', e => {
     }
 
     if (validInputs.length == getInputs().length) {
-      if(idValue === 'add') {
+      if (idValue === 'add') {
         generateTemp(createContact()); // generate template from the input fields
+        updateStorage();
+        if (!emptyPage.classList.contains('hidden')) {
+          emptyPage.classList.add('hidden');
+        }
       } else {
         generateTemp(createContact());
         let edited = getContacts().length - 2; // remove the second to the last element
         getContacts()[edited].remove();
+        updateStorage();
       }
       formWrapper.classList.add('hidden');
-    }
-
-    if(!emptyPage.classList.contains('hidden')) {
-      emptyPage.classList.add('hidden');
     }
   });
 });
@@ -128,6 +147,20 @@ addBtn.addEventListener('click', () => {
 });
 
 // function definitions
+// function to update the local storage with the contact data
+const updateStorage = () => {
+  /* i created an empty array and then call the getTodos function which gets all the todos that are present 
+  in the html and then convert all of them to JSON string and store them in the user's local storage using the 
+  key 'todos' as the key */
+  const contactArr = [];
+  let contacts = getContacts();
+  contacts.forEach(contact => {
+      contactArr.push(contact);
+  });
+  const contactContent = JSON.stringify(contactArr);
+  localStorage.setItem('contacts', contactContent);
+};
+
 
 // validate function
 const validateInputs = (inputField, regex) => {
@@ -162,6 +195,7 @@ const showDeleteComp = (item, removeable) => {
   if (deleteWrapper.classList.contains('hidden')) {
     deleteWrapper.classList.remove('hidden');
   }
+
   const html = `
   <h2>Confirm Deletion</h2>
   <p>Do you really want to remove <span>${item}</span> from your contacts?</p>
@@ -172,11 +206,13 @@ const showDeleteComp = (item, removeable) => {
   deletePage.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) {
       removeable.remove();
+      if(!getContacts().length) {
+        if(emptyPage.classList.contains('hidden')) {
+          emptyPage.classList.remove('hidden');
+        }
+      }
+      updateStorage()
       deleteWrapper.classList.add('hidden');
-      // if(!getContacts()) {
-      //   emptyPage.classList.remove('hidden');
-      // }
-      console.log(getContacts().length);
     }
     if (e.target.classList.contains('cancel')) {
       deleteWrapper.classList.add('hidden');
@@ -188,7 +224,7 @@ const showDeleteComp = (item, removeable) => {
 
 // function to get all the contacts in the contact field
 const getContacts = () => {
-  const allContacts = document.querySelectorAll('.contact-details li');
+  let allContacts = document.querySelectorAll('.contact-details li');
   return allContacts;
 };
 
@@ -243,17 +279,17 @@ contactContainer.addEventListener('click', (e) => {
         getInputs()[3].value = `${phone}`;
       }
       // extracting the new values from the form
-      
+
       if (e.target.classList.contains('delete')) {
         showDeleteComp(firstname, parent);
         contactCard.classList.add('hidden');
       }
-      
+
       if (e.target.classList.contains('cancel')) {
         contactCard.classList.add('hidden');
       }
     });
-    
+
     // updating the contact card
     const html = `
   <span class="fas fa-times cancel"></span>
@@ -291,3 +327,5 @@ contactContainer.addEventListener('click', (e) => {
     }
   }
 });
+
+// updateUi();

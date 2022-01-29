@@ -57,7 +57,7 @@ html {
 }
 
 body {
-    font-family: sans-serif;
+    font-family: 'Spartan', sans-serif;
     font-size: 1.5rem;
     width: 100vw;
     height: 100vh;
@@ -350,6 +350,7 @@ main.dark-theme .btn-tertiary:hover {
 
 .form-wrapper {
     position: fixed;
+    cursor: pointer;
     top: 0;
     left: 0;
     width: 100%;
@@ -459,4 +460,23 @@ main.dark-theme .form-control {
 
 main.dark-theme .form-control:focus {
     box-shadow: 0 0 4px var(--form-dark-border);
+}
+
+/* optimizing the screen for different sizes */
+@media screen and (min-width: 700px) {
+    .contact-form {
+        width: 35%;
+    }
+
+    header #new {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0.2rem 1rem;
+    }
+
+    #new span:nth-child(2) {
+        margin-left: 5px;
+        display: block;
+    }
 }
