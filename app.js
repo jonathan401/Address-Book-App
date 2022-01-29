@@ -46,6 +46,10 @@ const pattern = {
   phone: /^\d{11}$/,
 };
 
+// updating the theme of the page
+let theme = JSON.parse(localStorage.getItem('theme'));
+let imgSrc = JSON.parse(localStorage.getItem('icon'));
+
 const showForm = (headerText, buttonText, id) => {
   if (formWrapper.classList.contains('hidden')) {
     formWrapper.classList.remove('hidden');
@@ -361,6 +365,4 @@ contactContainer.addEventListener('click', (e) => {
 });
 
 updateUI();
-// updating the theme of the page
-let theme = JSON.parse(localStorage.getItem('theme'));
-let imgSrc = JSON.parse(localStorage.getItem('icon'));
+
