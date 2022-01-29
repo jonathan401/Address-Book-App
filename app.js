@@ -35,7 +35,11 @@ modeToggler.addEventListener('click', () => {
 });
 
 
-
+// updating the theme of the page
+let theme = JSON.parse(localStorage.getItem('theme'));
+let imgSrc = JSON.parse(localStorage.getItem('icon'));
+main.className = theme;
+modeImage.setAttribute('src', imgSrc);
 
 
 
@@ -365,8 +369,3 @@ contactContainer.addEventListener('click', (e) => {
 
 updateUI();
 
-// updating the theme of the page
-let theme = JSON.parse(localStorage.getItem('theme'));
-let imgSrc = JSON.parse(localStorage.getItem('icon'));
-main.className = theme;
-modeImage.setAttribute('src', imgSrc);
