@@ -23,15 +23,24 @@ const deletePage = document.querySelector('.delete-comp');
 // mode toggler
 modeToggler.addEventListener('click', () => {
   // toggling between light and dark mode using the ternary operator
+  main.classList.toggle('dark-theme');
   let imageSrc;
   main.classList.toggle('dark-theme');
   imageSrc =
   main.className == 'dark-theme'
+<<<<<<< HEAD
   ? 'images/icon-moon.svg'
   : 'images/icon-sun.svg';
   modeImage.setAttribute('src', imageSrc);
   localStorage.setItem('icon', JSON.stringify(imageSrc))
   localStorage.setItem('theme', JSON.stringify(main.className));
+=======
+  ? 'images/icon-sun.svg'
+  : 'images/icon-moon.svg';
+  modeImage.setAttribute('src', imageSrc);
+  localStorage.setItem('theme', JSON.stringify(main.className));
+  localStorage.setItem('icon', JSON.stringify(imageSrc));
+>>>>>>> c9e94f5f53fd506f465175984f46ffe4b7011c7b
 });
 
 
@@ -99,7 +108,7 @@ searchPanel.addEventListener('keyup', e => {
   e.preventDefault();
   const value = searchPanel.filterField.value.trim();
   getContacts().forEach(contact => {
-    if(!contact.textContent.toLowerCase().includes(value)) {
+    if(!contact.textContent.toLowerCase().includes(value.toLowerCase())) {
       contact.classList.add('hidden');
     } else {
       contact.classList.remove('hidden');
