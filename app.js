@@ -24,14 +24,14 @@ const deletePage = document.querySelector('.delete-comp');
 modeToggler.addEventListener('click', () => {
   // toggling between light and dark mode using the ternary operator
   let imageSrc;
+  main.classList.toggle('dark-theme');
   imageSrc =
   main.className == 'dark-theme'
-  ? 'images/icon-sun.svg'
-  : 'images/icon-moon.svg';
-  main.classList.toggle('dark-theme');
-  localStorage.setItem('theme', JSON.stringify(main.className));
-  localStorage.setItem('icon', JSON.stringify(imageSrc))
+  ? 'images/icon-moon.svg'
+  : 'images/icon-sun.svg';
   modeImage.setAttribute('src', imageSrc);
+  localStorage.setItem('icon', JSON.stringify(imageSrc))
+  localStorage.setItem('theme', JSON.stringify(main.className));
 });
 
 
