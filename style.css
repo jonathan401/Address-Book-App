@@ -182,25 +182,19 @@ main.dark-theme .empty-page p {
     margin-right: 1rem;
 }
 
-.contact-card.slide {
-    right: 0;
-}
-
 /* contact card light mode */
 .contact-card {
-    position: fixed;
+    background-color: var(--main-dark);
+    position: absolute;
     text-align: center;  
+    right: 0;
     font-size: 1.2rem;
     color: var(--btn-dark-primary-text);
     top: 50px;
     height: 100%;
-    z-index: 20;
-    width: 100%;
-    max-width: 350px; /*change this to 50% for wider screens*/
-    right: 0;
-    /* transition: all 4s ease; */
-    background-color: var(--main-dark);
+    max-width: 350px; 
 }
+
 
 .card-image img {
     object-fit: cover;
@@ -356,7 +350,7 @@ main.dark-theme .btn-tertiary:hover {
 }
 
 .form-wrapper {
-    position: fixed;
+    position: absolute;
     cursor: pointer;
     top: 0;
     left: 0;
@@ -472,7 +466,7 @@ main.dark-theme .form-control:focus {
 /* optimizing the screen for different sizes */
 @media screen and (min-width: 700px) {
     .contact-form {
-        width: 46%;
+        width: 30%;
     }
 
     header #new {
