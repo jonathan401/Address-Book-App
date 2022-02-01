@@ -134,8 +134,8 @@ form.addEventListener('submit', (e) => {
             updateContact(contact);
           }
         });
-
         reset();
+        updateStorage();
       }
 
       formWrapper.classList.add('hidden');
