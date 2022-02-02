@@ -93,9 +93,9 @@ const showForm = (headerText, buttonText, id) => {
 // function to filter the contacts
 searchPanel.addEventListener('keyup', (e) => {
   e.preventDefault();
-  const value = searchPanel.filterField.value.trim();
+  let value = searchPanel.filterField.value.trim();
   getContacts().forEach((contact) => {
-    if (!contact.textContent.toLowerCase().includes(value)) {
+    if (!contact.textContent.toLowerCase().includes(value.toLowerCase())) {
       contact.classList.add('hidden');
     } else {
       contact.classList.remove('hidden');
@@ -176,7 +176,7 @@ const updateStorage = () => {
 
 // function to reset all contact values
 const reset = () => {
-  getContacts().forEach(contact => {
+  getContacts().forEach((contact) => {
     contact.setAttribute('id', 'not');
   });
 };
