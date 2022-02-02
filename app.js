@@ -130,7 +130,7 @@ form.addEventListener('submit', (e) => {
         }
       } else {
         getContacts().forEach((contact) => {
-          if (contact.getAttribute('id') === 'current') {
+          if (contact.getAttribute('data-id') === 'current') {
             updateContact(contact);
           }
         });
@@ -177,7 +177,7 @@ const updateStorage = () => {
 // function to reset all contact values
 const reset = () => {
   getContacts().forEach((contact) => {
-    contact.setAttribute('id', 'not');
+    contact.setAttribute('data-id', 'not');
   });
 };
 
@@ -205,7 +205,7 @@ const validateInputs = (inputField, regex) => {
 // function to generate template for contact
 const generateTemp = (contactInfo) => {
   let html = `
-    <li class="container" id="not">
+    <li class="container" data-id="not">
       <div class="contact">
         <div class="contact-image">
           <span class="fas fa-user"></span>
@@ -315,7 +315,7 @@ contactContainer.addEventListener('click', (e) => {
     let lastname = main.children[0].children[2].textContent;
     let email = main.children[0].children[3].textContent;
     let phone = main.children[0].children[4].textContent;
-    main.setAttribute('id', 'current');
+    main.setAttribute('data-id', 'current');
     /* whenever a contact is clicked, the current contact is given an id to make it different from the others
     when the form is submitted, all contacts are reset back to the default id which is 'not' */
     contactCard.addEventListener('click', (e) => {
