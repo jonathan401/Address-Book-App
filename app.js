@@ -12,16 +12,9 @@ const modeImage = document.querySelector('.toggler img');
 const searchPanel = document.querySelector('form.search');
 const deletePage = document.querySelector('.delete-comp');
 
-// // hidding the form when the cancel buttons is clicked
-// main.addEventListener('click', (e) => {
-//   if (e.target.classList.contains('cancel')) {
-//     e.target.parentElement.parentElement.classList.add('hidden');
-//   }
-// });
-
 // mode toggler
 modeToggler.addEventListener('click', () => {
-  // toggling between light and dark mode using the ternary operator
+  // toggling between light and dark mode using the ternary operator\
   let imageSrc;
   main.classList.toggle('dark-theme');
   imageSrc =
@@ -36,7 +29,7 @@ modeToggler.addEventListener('click', () => {
 // updating the theme of the page
 let theme = JSON.parse(localStorage.getItem('theme'));
 let imgSrc = JSON.parse(localStorage.getItem('icon'));
-main.className = theme;
+main.className += theme;
 modeImage.setAttribute('src', imgSrc);
 
 // regex pattern
@@ -44,7 +37,7 @@ const pattern = {
   firstname: /^[A-Z][a-z]{0,9}$/,
   lastname: /^[A-Z][a-z]{0,9}$/,
   email: /^([a-zA-Z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
-  phone: /^\d{11}$/,
+  phone: /^\d{11}$/
 };
 
 const showForm = (headerText, buttonText, id) => {
@@ -82,7 +75,7 @@ const showForm = (headerText, buttonText, id) => {
     `;
 
   form.innerHTML = html;
-  form.addEventListener('click', (e) => {
+  form.addEventListener('click', e => {
     if (e.target.classList.contains('cancel')) {
       reset();
       formWrapper.classList.add('hidden');
@@ -91,10 +84,10 @@ const showForm = (headerText, buttonText, id) => {
 };
 
 // function to filter the contacts
-searchPanel.addEventListener('keyup', (e) => {
+searchPanel.addEventListener('keyup', e => {
   e.preventDefault();
   let value = searchPanel.filterField.value.trim();
-  getContacts().forEach((contact) => {
+  getContacts().forEach(contact => {
     if (!contact.textContent.toLowerCase().includes(value.toLowerCase())) {
       contact.classList.add('hidden');
     } else {
@@ -104,18 +97,18 @@ searchPanel.addEventListener('keyup', (e) => {
 });
 
 // function to prevent the page from reloading when the filter form is submitted
-searchPanel.addEventListener('submit', (e) => {
+searchPanel.addEventListener('submit', e => {
   e.preventDefault();
 });
 
 // adding an event listener to the form
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', e => {
   e.preventDefault();
   let validInputs = [];
 
   let idValue = form.getAttribute('id');
 
-  getInputs().forEach((input) => {
+  getInputs().forEach(input => {
     validateInputs(input, pattern[input.attributes.name.value]);
     if (!input.classList.contains('invalid')) {
       validInputs.push(input);
@@ -129,7 +122,7 @@ form.addEventListener('submit', (e) => {
           emptyPage.classList.add('hidden');
         }
       } else {
-        getContacts().forEach((contact) => {
+        getContacts().forEach(contact => {
           if (contact.getAttribute('data-id') === 'current') {
             updateContact(contact);
           }
@@ -155,7 +148,7 @@ const updateStorage = () => {
   in the html and then convert all of them to JSON string and store them in the user's local storage using the 
   key 'todos' as the key */
   const contactArr = [];
-  getContacts().forEach((contact) => {
+  getContacts().forEach(contact => {
     // tried to extract the details from every one of the contacts
     let firstname = contact.children[0].children[1].textContent;
     let lastname = contact.children[0].children[2].textContent;
@@ -165,7 +158,7 @@ const updateStorage = () => {
       firstname: firstname,
       lastname: lastname,
       email: email,
-      phone: phone,
+      phone: phone
     };
     contactArr.push(info);
   });
@@ -176,7 +169,7 @@ const updateStorage = () => {
 
 // function to reset all contact values
 const reset = () => {
-  getContacts().forEach((contact) => {
+  getContacts().forEach(contact => {
     contact.setAttribute('data-id', 'not');
   });
 };
@@ -184,7 +177,7 @@ const reset = () => {
 // updating the page with the data gotten from local storage
 const updateUI = () => {
   const stored = JSON.parse(localStorage.getItem('contacts'));
-  stored.forEach((contactDetails) => {
+  stored.forEach(contactDetails => {
     if (!emptyPage.classList.contains('hidden'));
     {
       emptyPage.classList.add('hidden');
@@ -203,7 +196,7 @@ const validateInputs = (inputField, regex) => {
 };
 
 // function to generate template for contact
-const generateTemp = (contactInfo) => {
+const generateTemp = contactInfo => {
   let html = `
     <li class="container" data-id="not">
       <div class="contact">
@@ -234,7 +227,7 @@ const showDeleteComp = (item, removeable) => {
   <button class="btn btn-danger delete">Delete</button>
   `;
   deletePage.innerHTML = html;
-  deletePage.addEventListener('click', (e) => {
+  deletePage.addEventListener('click', e => {
     if (e.target.classList.contains('delete')) {
       removeable.remove();
       if (!getContacts().length) {
@@ -287,7 +280,7 @@ const getInputs = () => {
 };
 
 // function to update a contact
-const updateContact = (element) => {
+const updateContact = element => {
   let updateHtml = createContact();
   let html = `
     <div class="contact">
@@ -305,7 +298,7 @@ const updateContact = (element) => {
 };
 
 // function to display contact card when a contact is clicked on
-contactContainer.addEventListener('click', (e) => {
+contactContainer.addEventListener('click', e => {
   if (e.target.classList.contains('container')) {
     /* this is the only way i could think of to get the firstname, lastname, email and 
     phone number form the contact */
@@ -318,7 +311,7 @@ contactContainer.addEventListener('click', (e) => {
     main.setAttribute('data-id', 'current');
     /* whenever a contact is clicked, the current contact is given an id to make it different from the others
     when the form is submitted, all contacts are reset back to the default id which is 'not' */
-    contactCard.addEventListener('click', (e) => {
+    contactCard.addEventListener('click', e => {
       if (e.target.classList.contains('update')) {
         contactCard.classList.add('hidden');
         showForm(`Edit ${firstname}`, 'Update', 'edit');
