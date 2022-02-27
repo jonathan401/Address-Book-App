@@ -14,7 +14,8 @@ const deletePage = document.querySelector('.delete-comp');
 
 // mode toggler
 modeToggler.addEventListener('click', () => {
-  // toggling between light and dark mode using the ternary operator\
+  // toggling between light and dark mode using the ternary operator
+
   let imageSrc;
   main.classList.toggle('dark-theme');
   imageSrc =
@@ -24,6 +25,11 @@ modeToggler.addEventListener('click', () => {
   modeImage.setAttribute('src', imageSrc);
   localStorage.setItem('icon', JSON.stringify(imageSrc));
   localStorage.setItem('theme', JSON.stringify(main.className));
+
+  if (!main.classList.contains('dark-theme')) {
+    modeImage.setAttribute('src', 'images/icon-sun.svg');
+    console.log('true');
+  }
 });
 
 // updating the theme of the page
