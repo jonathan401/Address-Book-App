@@ -1,364 +1,359 @@
 /* global variables */
 :root {
-    /* light mode */
-    --main-light: #f8f8fb;
-    --nav-light: #373b53;
-    --heading-light: #0c0e16;
-    /* form variables */
-    --form-light: #fff;
-    --form-light-border: #dfe3fa;
-    --form-light-label: #7e88c3;
-    /* buttons */
-    /* primary buttons */
-    --btn-light-primary-bg: #f9fafe;
-    --btn-light-primary-hover: #dfe3fa;
-    --btn-light-primary-text: #7e88c3;
-    /* tertiary buttons */
-    --btn-light-tertiary-bg: #363b53;
-    --btn-light-tertiary-hover: #0c0e16;
-    --btn-light-tertiary-text: #888eb0;
-    /* danger button */
-    --btn-danger: #ff293b;
-    --btn-danger-hover: #ff7581;
+  /* light mode */
+  --main-light: #f8f8fb;
+  --nav-light: #373b53;
+  --heading-light: #0c0e16;
+  /* form variables */
+  --form-light: #fff;
+  --form-light-border: #dfe3fa;
+  --form-light-label: #7e88c3;
+  /* buttons */
+  /* primary buttons */
+  --btn-light-primary-bg: #f9fafe;
+  --btn-light-primary-hover: #dfe3fa;
+  --btn-light-primary-text: #7e88c3;
+  /* tertiary buttons */
+  --btn-light-tertiary-bg: #363b53;
+  --btn-light-tertiary-hover: #0c0e16;
+  --btn-light-tertiary-text: #888eb0;
+  /* danger button */
+  --btn-danger: #ff293b;
+  --btn-danger-hover: #ff7581;
 
-    /* pop up and invoice item */
-    --item-color-light: #eee;
+  /* pop up and invoice item */
+  --item-color-light: #eee;
 
-    /* dark theme */
-    --main-dark: #141625;
-    --nav-dark: #1e2139;
-    --heading-dark: #fff;
-    /* form variables */
-    --form-dark: #141625;
-    --form-field-dark-bg: #1e2139;
-    --form-dark-border: #252945;
-    --form-dark-label: #def3fa;
-    /* buttons */
-    /* primary buttons */
-    --btn-dark-primary-bg: #252945;
-    --btn-dark-primary-hover: #fff;
-    --btn-dark-primary-text: #def3fa;
-    /* tertiary buttons */
-    --btn-dark-tertiary-bg: #363b53;
-    --btn-dark-tertiary-hover: #dfe3fa;
-    --btn-dark-tertiary-text: #888eb0;
+  /* dark theme */
+  --main-dark: #141625;
+  --nav-dark: #1e2139;
+  --heading-dark: #fff;
+  /* form variables */
+  --form-dark: #141625;
+  --form-field-dark-bg: #1e2139;
+  --form-dark-border: #252945;
+  --form-dark-label: #def3fa;
+  /* buttons */
+  /* primary buttons */
+  --btn-dark-primary-bg: #252945;
+  --btn-dark-primary-hover: #fff;
+  --btn-dark-primary-text: #def3fa;
+  /* tertiary buttons */
+  --btn-dark-tertiary-bg: #363b53;
+  --btn-dark-tertiary-hover: #dfe3fa;
+  --btn-dark-tertiary-text: #888eb0;
 
-    --item-color-dark: #1e2139;
+  --item-color-dark: #1e2139;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
 }
 
 body {
-    font-family: 'Spartan', sans-serif;
-    font-size: 1.5rem;
-    width: 100vw;
-    height: 100vh;
-    overflow-x: hidden;
+  font-family: 'Spartan', sans-serif;
+  font-size: 1.5rem;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 /* general class to hide an element */
 .hidden {
-    display: none !important;
+  display: none !important;
 }
 
 main {
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    background-color: var(--main-light);
-    transition: all 0.3s linear;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: var(--main-light);
+  transition: all 0.3s linear;
 }
 
 main.dark-theme {
-    background-color: var(--main-dark);
+  background-color: var(--main-dark);
 }
 
 nav .toggler {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 main nav {
-    height: 50px;
-    padding: 0 3rem;
-    background-color: var(--nav-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  height: 50px;
+  padding: 0 3rem;
+  background-color: var(--nav-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 main h1 {
-    color: #fff;
+  color: #fff;
 }
 
 header {
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 header #new {
-    /* padding: 6px 10px; */
-    width: auto;
-    background-color: var(--btn-dark-tertiary-bg);
-    border-radius: 15px;
-    cursor: pointer;
-    color: #fff;
+  /* padding: 6px 10px; */
+  width: auto;
+  background-color: var(--btn-dark-tertiary-bg);
+  border-radius: 15px;
+  cursor: pointer;
+  color: #fff;
 }
 
 #new span:nth-child(2) {
-    display: none;
+  display: none;
 }
 
 header #new span:nth-child(1) {
-    padding: 8px;
-    /* margin-right: 3px; */
-    color: var(--heading-dark);
-    border-radius: 50%;
-    background-color: var(--heading-light);
+  padding: 8px;
+  /* margin-right: 3px; */
+  color: var(--heading-dark);
+  border-radius: 50%;
+  background-color: var(--heading-light);
 }
 
 .empty-page {
-    margin: 2rem auto;
-    text-align: center;
-    color: var(--heading-light);
+  margin: 2rem auto;
+  text-align: center;
+  color: var(--heading-light);
 }
 
 .empty-page h2 {
-    margin-bottom: 1.4rem;
+  margin-bottom: 1.4rem;
 }
 
 main.dark-theme .empty-page h2,
 main.dark-theme .empty-page p {
-    color: var(--heading-dark);
+  color: var(--heading-dark);
 }
 
 /* styling the ul that holds the contact's page and details light mode */
 .contacts {
-    max-width: 700px;
-    padding: 1rem 0;
-    /* margin: 0 auto; */
+  max-width: 700px;
+  padding: 1rem 0;
+  /* margin: 0 auto; */
 }
 
 .contact-details {
-    padding: 0 2rem;
-    width: 100%;
-    list-style: none;
+  padding: 0 2rem;
+  width: 100%;
+  list-style: none;
 }
 
 .contact-details li {
-    cursor: pointer;
-    margin-bottom: 2rem;
-    display: flex;
-    border-radius: 9px;
-    justify-content: space-between;
-    padding: 2rem;
-    background-color: var(--item-color-light);
-    color: #888eb0;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  display: flex;
+  border-radius: 9px;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: var(--item-color-light);
+  color: #888eb0;
 }
 
 .contact {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .contact-details p {
-    font-weight: 700;
-    margin: 0 5px;
+  font-weight: 700;
+  margin: 0 5px;
 }
 
 .contact-image .fas {
-    margin-right: 1rem;
+  margin-right: 1rem;
 }
 
 /* contact card light mode */
 .contact-card {
-    background-color: var(--main-dark);
-    position: absolute;
-    text-align: center;  
-    right: 0;
-    font-size: 1.2rem;
-    color: var(--btn-dark-primary-text);
-    top: 50px;
-    height: 100%;
-    max-width: 350px; 
+  background-color: var(--main-dark);
+  position: absolute;
+  text-align: center;
+  right: 0;
+  font-size: 1.2rem;
+  color: var(--btn-dark-primary-text);
+  top: 50px;
+  height: 100%;
+  max-width: 350px;
 }
 
-
 .card-image img {
-    object-fit: cover;
-    width: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .card-image {
-    margin-bottom: 0.7rem;
+  margin-bottom: 0.7rem;
 }
 
 /* styling the contact page */
 .card-text {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .card-text header,
 .text-group {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .text-group {
-    margin-left: 2rem;
+  margin-left: 2rem;
 }
 
 .text-group h3 {
-    text-align: left;
-    margin-bottom: 0.4rem;
+  text-align: left;
+  margin-bottom: 0.4rem;
 }
 
 .text-group .info {
-    display: flex;
-    font-weight: 600;
-    padding: 0.6rem;
-    justify-content: space-between;
+  display: flex;
+  font-weight: 600;
+  padding: 0.6rem;
+  justify-content: space-between;
 }
 
 .contact-card .buttons {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .contact-card .btn {
-    margin: 0 7px;
+  margin: 0 7px;
 }
 
 /* styling the delete confirmation box */
 .wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .delete-comp {
-    padding: 1.5rem;
-    width: 100%;
-    margin: 0 auto;
-    font-size: 1.2rem;
-    max-width: 300px;
-    border-radius: 7px;
-    background-color: var(--item-color-light);
-    color: var(--heading-light);
+  padding: 1.5rem;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 1.2rem;
+  max-width: 300px;
+  border-radius: 7px;
+  background-color: var(--item-color-light);
+  color: var(--heading-light);
 }
 
-.delete-comp h2, 
+.delete-comp h2,
 .delete-comp p {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .delete-comp span {
-    font-weight: 900;
+  font-weight: 900;
 }
 
 main.dark-theme .delete-comp {
-    background-color: var(--item-color-dark);
-    color: var(--heading-dark)
+  background-color: var(--item-color-dark);
+  color: var(--heading-dark);
 }
 
 main.dark-theme .contact-card {
-    background-color: var(--main-light);
-    color: var(--btn-light-primary-text);
+  background-color: var(--main-light);
+  color: var(--btn-light-primary-text);
 }
-
 
 main.dark-theme .contact-details li {
-    background-color: var(--item-color-dark);
-    color: var(--heading-dark);
+  background-color: var(--item-color-dark);
+  color: var(--heading-dark);
 }
-
 
 /* styling the buttons light mode*/
 .btn {
-    padding: 0.9rem 1.7rem;
-    text-align: center;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    border-radius: 15px;
+  padding: 0.9rem 1.7rem;
+  text-align: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 15px;
 }
 
 /* primary buttons */
 .btn-primary {
-    background-color: var(--btn-light-primary-bg);
-    color: var(--btn-light-primary-text);
+  background-color: var(--btn-light-primary-bg);
+  color: var(--btn-light-primary-text);
 }
 
 .btn-primary:hover {
-    background-color: var(--btn-light-primary-hover);
+  background-color: var(--btn-light-primary-hover);
 }
 
 .btn-danger {
-    background-color: var(--btn-danger);
-    color: var(--btn-dark-primary-text);
+  background-color: var(--btn-danger);
+  color: var(--btn-dark-primary-text);
 }
 
 .btn-danger:hover {
-    background-color: var(--btn-danger-hover);
+  background-color: var(--btn-danger-hover);
 }
 /* secondary buttons */
 .btn-tertiary {
-    background-color: var(--btn-light-primary-bg);
-    color: var(--btn-light-tertiary-text);
+  background-color: var(--btn-light-primary-bg);
+  color: var(--btn-light-tertiary-text);
 }
 
 .btn-tertiary:hover {
-    background-color: var(--btn-light-tertiary-hover);
-    color: var(--btn-light-tertiary-text);
-
+  background-color: var(--btn-light-tertiary-hover);
+  color: var(--btn-light-tertiary-text);
 }
 
 /* buttons in dark mode */
 main.dark-theme .btn-primary {
-    background-color: var(--btn-dark-primary-bg);
-    color: var(--btn-dark-primary-text);
+  background-color: var(--btn-dark-primary-bg);
+  color: var(--btn-dark-primary-text);
 }
 
 main.dark-theme .btn-primary:hover {
-    background-color: var(--btn-dark-primary-hover);
+  background-color: var(--btn-dark-primary-hover);
 }
 
 main.dark-theme .btn-tertiary {
-    background-color: var(--btn-dark-tertiary-bg);
-    color: var(--btn-dark-tertiary-text);
+  background-color: var(--btn-dark-tertiary-bg);
+  color: var(--btn-dark-tertiary-text);
 }
 
 main.dark-theme .btn-tertiary:hover {
-    background-color: var(--btn-dark-tertiary-hover);
+  background-color: var(--btn-dark-tertiary-hover);
 }
 
 .form-wrapper {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
-
 
 /* class to give the form a form of animation to the right */
 /* .contact-form.slide-right {
@@ -368,116 +363,116 @@ main.dark-theme .btn-tertiary:hover {
 
 /* styling the add up form (light-theme) */
 .contact-form {
-    background-color: var(--form-light);
-    position: relative;
-    top: 50px;   
-    padding: 2.5rem;
-    width: 100%;
-    height: 100%;
+  background-color: var(--form-light);
+  position: relative;
+  top: 50px;
+  padding: 2.5rem;
+  width: 100%;
+  height: 100%;
 }
 
 .contact-form h1 {
-    color: var(--heading-light);
-    text-align: center;
-    font-size: 2rem;
+  color: var(--heading-light);
+  text-align: center;
+  font-size: 2rem;
 }
 
 .fa-times {
-    position: absolute;
-    top: 10px;
-    font-size: 2rem;
-    display: block;
-    color: var(--btn-light-primary-text);
-    right: 30px;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: 600;
+  position: absolute;
+  top: 10px;
+  font-size: 2rem;
+  display: block;
+  color: var(--btn-light-primary-text);
+  right: 30px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-.form-group, 
+.form-group,
 .contact-form h1 {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .form-control + p {
-    height: 0;
-    opacity: 0;
-    font-size: 1rem;
-    text-align: center;
+  height: 0;
+  opacity: 0;
+  font-size: 1rem;
+  text-align: center;
 }
 
 .form-control.invalid + p {
-    height: auto;
-    color: red;
-    opacity: 1;
+  height: auto;
+  color: red;
+  opacity: 1;
 }
 
 .form-control.invalid {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .form-group label {
-    color: var(--form-light-label);
-    display: block;
+  color: var(--form-light-label);
+  display: block;
 }
 
 .form-control {
-    color: var(--heading-light);
-    width: 100%;
-    background-color: var(--form-light);
-    border: 1px solid var(--form-light-border);
-    border-radius: 4px;
-    padding: 0.7rem 1rem;
-    transition: all 0.19s;
+  color: var(--heading-light);
+  width: 100%;
+  background-color: var(--form-light);
+  border: 1px solid var(--form-light-border);
+  border-radius: 4px;
+  padding: 0.7rem 1rem;
+  transition: all 0.19s;
 }
 
 .form-control:focus {
-    outline: 0;
-    box-shadow: 0 0 4px var(--form-light-border);
+  outline: 0;
+  box-shadow: 0 0 4px var(--form-light-border);
 }
 
 /* styling the form dark theme */
 main.dark-theme .contact-form {
-    background-color: var(--form-dark);
+  background-color: var(--form-dark);
 }
 
 main.dark-theme .contact-form h1 {
-    color: var(--heading-dark);
+  color: var(--heading-dark);
 }
 
 main.dark-theme .contact-form span {
-    color: var(--btn-light-primary-text);
+  color: var(--btn-light-primary-text);
 }
 
 main.dark-theme .form-group label {
-    color: var(--form-dark-label);
+  color: var(--form-dark-label);
 }
 
 main.dark-theme .form-control {
-    color: #fff;
-    background-color: var(--form-field-dark-bg);
-    border: 1px solid var(--form-dark-border);
+  color: #fff;
+  background-color: var(--form-field-dark-bg);
+  border: 1px solid var(--form-dark-border);
 }
 
 main.dark-theme .form-control:focus {
-    box-shadow: 0 0 4px var(--form-dark-border);
+  box-shadow: 0 0 4px var(--form-dark-border);
 }
 
 /* optimizing the screen for different sizes */
 @media screen and (min-width: 700px) {
-    .contact-form {
-        width: 30%;
-    }
+  .contact-form {
+    width: 30%;
+  }
 
-    header #new {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        padding: 0.5rem 1rem;
-    }
+  header #new {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
 
-    #new span:nth-child(2) {
-        margin-left: 5px;
-        display: block;
-    }
+  #new span:nth-child(2) {
+    margin-left: 5px;
+    display: block;
+  }
 }

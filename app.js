@@ -148,8 +148,8 @@ addBtn.addEventListener('click', () => {
 // function definitions
 // function to update the local storage with the contact data
 const updateStorage = () => {
-  /* i created an empty array and then call the getTodos function which gets all the todos that are present 
-  in the html and then convert all of them to JSON string and store them in the user's local storage using the 
+  /* i created an empty array and then call the getTodos function which gets all the todos that are present
+  in the html and then convert all of them to JSON string and store them in the user's local storage using the
   key 'todos' as the key */
   const contactArr = [];
   getContacts().forEach(contact => {
@@ -234,14 +234,15 @@ const showDeleteComp = (item, removeable) => {
   deletePage.addEventListener('click', e => {
     if (e.target.classList.contains('delete')) {
       removeable.remove();
-      if (!getContacts().length) {
-        if (emptyPage.classList.contains('hidden')) {
-          emptyPage.classList.remove('hidden');
-        }
-      }
-      updateStorage();
-      deleteWrapper.classList.add('hidden');
     }
+    if (!getContacts().length) {
+      if (emptyPage.classList.contains('hidden')) {
+        emptyPage.classList.remove('hidden');
+      }
+    }
+    updateStorage();
+    deleteWrapper.classList.add('hidden');
+
     if (e.target.classList.contains('cancel')) {
       deleteWrapper.classList.add('hidden');
     }
@@ -304,7 +305,7 @@ const updateContact = element => {
 // function to display contact card when a contact is clicked on
 contactContainer.addEventListener('click', e => {
   if (e.target.classList.contains('container')) {
-    /* this is the only way i could think of to get the firstname, lastname, email and 
+    /* this is the only way i could think of to get the firstname, lastname, email and
     phone number form the contact */
     let main = e.target;
     // i prepopulated the form with the current contact's details
